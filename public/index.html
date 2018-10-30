@@ -1,0 +1,47 @@
+<html>
+    <header>
+        <title>Voter</title>
+        <script  src="https://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    </header>
+
+<body>
+
+    <script type="text/javascript">
+
+        function vote(choice){
+
+            $.post("http://localhost:3000/vote", { vote: choice}, function (data) {
+                alert(data);
+            });
+        }
+
+        function getVotes(){
+            $.get("http://localhost:3000/getvotes", function (data) {
+               
+                var myHtml = "";
+
+                for(var i = 0; i < data.length; i++)
+                {
+                    myHtml += data[i] + "<br />";
+                }
+                $("#votes").html(myHtml);
+                
+            });
+        }
+    </script>
+
+  <h1>Which food would you give up for the rest of your life?</h1>
+  <button onclick="vote('tacos')">Tacos</button>
+  <button onclick="vote('burgers')">Burgers</button>
+  <button onclick="vote('pizza')">Pizza</button>
+  <button onclick="vote('wings')">Wings</button>
+<br />
+<br />
+<button onclick="getVotes()">Get Votes</button>
+<hr />
+  <div id="votes">
+
+  </div>
+</body>
+
+</html>
